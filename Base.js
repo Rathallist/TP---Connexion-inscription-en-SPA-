@@ -41,33 +41,33 @@ class AuthApp {
     handleLogin(event) {
         event.preventDefault();
 
-        const username = document.getElementById('login-username').value.trim();
+        const email = document.getElementById('login-email').value.trim();
         const password = document.getElementById('login-password').value;
         const rememberMe = document.getElementById('remember-me').checked;
 
         // Valider les champs
-        if (!username || !password) {
+        if (!email || !password) {
             this.showLoginError('Veuillez remplir tous les champs.');
             return;
         }
 
-        // Vérifier les identifiants
-        const user = this.users.find(u => u.username === username);
+        // Vérifier les e-mails
+        const user = this.users.find(u => u.email === email.toLowerCase());
 
         if (!user) {
-            this.showLoginError('Identifiant ou mot de passe incorrect.');
+            this.showLoginError('Adresse e-mail ou mot de passe incorrect.');
             return;
         }
 
         if (user.password !== password) {
-            this.showLoginError('Identifiant ou mot de passe incorrect.');
+            this.showLoginError('Adresse e-mail ou mot de passe incorrect.');
             return;
         }
 
         // Connexion réussie
         this.currentUser = user;
         if (rememberMe) {
-            localStorage.setItem('rememberedUser', username);
+            localStorage.setItem('rememberedUser', email.toLowerCase());
         }
         this.clearLoginForm();
         this.showPage('home');
@@ -78,13 +78,13 @@ class AuthApp {
     handleRegister(event) {
         event.preventDefault();
 
+        const name = document.getElementById('register-name').value.trim();
         const email = document.getElementById('register-email').value.trim();
-        const username = document.getElementById('register-username').value.trim();
         const password = document.getElementById('register-password').value;
         const confirmPassword = document.getElementById('register-confirm-password').value;
 
         // Valider les champs
-        if (!email || !username || !password || !confirmPassword) {
+        if (!name || !email || !password || !confirmPassword) {
             this.showRegisterError('Veuillez remplir tous les champs.');
             return;
         }
@@ -107,22 +107,22 @@ class AuthApp {
             return;
         }
 
-        // Vérifier que l'email n'existe pas déjà
-        if (this.users.some(u => u.email === email)) {
+        // Vérifier que l'e-mail n'existe pas déjà
+        if (this.users.some(u => u.email === email.toLowerCase())) {
             this.showRegisterError('Cette adresse e-mail est déjà utilisée.');
             return;
         }
 
-        // Vérifier que l'identifiant n'existe pas déjà
-        if (this.users.some(u => u.username === username)) {
-            this.showRegisterError('Cet identifiant est déjà utilisé.');
+        // Vérifier que le nom n'existe pas déjà
+        if (this.users.some(u => u.name.toLowerCase() === name.toLowerCase())) {
+            this.showRegisterError('Ce nom est déjà utilisé.');
             return;
         }
 
         // Créer le nouvel utilisateur
         const newUser = {
-            email: email,
-            username: username,
+            name: name,
+            email: email.toLowerCase(),
             password: password
         };
 
@@ -163,7 +163,7 @@ class AuthApp {
     updateWelcomeMessage() {
         if (this.currentUser) {
             document.getElementById('welcome-message').textContent = 
-                `Vous êtes connecté en tant que ${this.currentUser.username}.`;
+                `Vous êtes connecté en tant que ${this.currentUser.name}.`;
         }
     }
 
@@ -185,7 +185,7 @@ class AuthApp {
 
     // Vider le formulaire de connexion
     clearLoginForm() {
-        document.getElementById('login-username').value = '';
+        document.getElementById('login-email').value = '';
         document.getElementById('login-password').value = '';
         document.getElementById('remember-me').checked = false;
         document.getElementById('login-error').textContent = '';
@@ -193,8 +193,8 @@ class AuthApp {
 
     // Vider le formulaire d'inscription
     clearRegisterForm() {
+        document.getElementById('register-name').value = '';
         document.getElementById('register-email').value = '';
-        document.getElementById('register-username').value = '';
         document.getElementById('register-password').value = '';
         document.getElementById('register-confirm-password').value = '';
         document.getElementById('register-error').textContent = '';
@@ -214,8 +214,8 @@ class AuthApp {
         }
         // Utilisateurs de test
         return [
-            { email: 'test@example.com', username: 'test', password: 'test123' },
-            { email: 'demo@example.com', username: 'demo', password: 'demo123' }
+            { name: 'Test User', email: 'test@example.com', password: 'test123' },
+            { name: 'Demo User', email: 'demo@example.com', password: 'demo123' }
         ];
     }
 

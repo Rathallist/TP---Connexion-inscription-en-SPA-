@@ -244,19 +244,35 @@ body {
         font-size: 13px;
     }
 }
-}
+
 
 .connexion-btn:hover {
     background-color: transparent;
-    border: 2px solid rgba(253, 0, 0, 0.2);
+    border: 2px solid rgba(102, 126, 234, 0.4);
     color: #fff;
 }
 
-.register-link {
+.register-link,
+.connexion-link {
     text-align: center;
     margin-top: 25px;
     font-size: 14px;
-    color: #fff;
+    color: #666;
+}
+
+.register-link a,
+.connexion-link a {
+    color: #667eea;
+    text-decoration: none;
+    font-weight: 600;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.register-link a:hover,
+.connexion-link a:hover {
+    color: #764ba2;
+    text-decoration: underline;
 }
 
 inscription {
@@ -284,7 +300,7 @@ section h1 {
 }
 
 .connexion-link a {
-    color: #fff;
+    color: #667eea;
     text-decoration: none;
     transition: 0.5s;
     font-weight: bold;
@@ -318,7 +334,7 @@ section h1 {
     text-align: center;
     margin-top: 25px;
     font-size: 14px;
-    color: #fff;
+    color: #666;
 }
 
 Acceuil {
