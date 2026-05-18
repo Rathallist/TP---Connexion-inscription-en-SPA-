@@ -1,3 +1,6 @@
+/* ==========================================================================
+   1. Réinitialisation globale & Base
+   ========================================================================== */
 * {
     margin: 0;
     padding: 0;
@@ -6,11 +9,11 @@
 
 body {
     height: 100vh;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #1f1c2c 0%, #928dab 100%);
     display: flex;
     justify-content: center;
     align-items: center;
-    font-family: 'Arial', sans-serif;
+    font-family: 'Segoe UI', Arial, sans-serif;
 }
 
 #app {
@@ -21,6 +24,9 @@ body {
     align-items: center;
 }
 
+/* ==========================================================================
+   2. Gestion de l'affichage SPA (Pages)
+   ========================================================================== */
 .page {
     display: none;
     width: 100%;
@@ -33,29 +39,43 @@ body {
     display: flex;
 }
 
-.form-container {
+/* ==========================================================================
+   3. Conteneurs des Formulaires (Cartes)
+   ========================================================================== */
+.form-container, 
+.home-container {
     background-color: rgba(255, 255, 255, 0.95);
-    border: 2px solid rgba(255, 255, 255, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.4);
     backdrop-filter: blur(20px);
     padding: 40px;
     width: 100%;
     max-width: 420px;
     border-radius: 20px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    animation: fadeIn 0.4s ease-in-out;
 }
 
-.form-container h1 {
+.home-container {
+    max-width: 550px;
+    text-align: center;
+}
+
+/* Titres */
+.form-container h1, 
+.home-container h1 {
     font-size: 28px;
-    color: #333;
-    margin-bottom: 30px;
+    color: #2c1a3f;
+    margin-bottom: 25px;
     text-align: center;
     font-weight: bold;
 }
 
+/* ==========================================================================
+   4. Éléments de Formulaire (Inputs, Boutons)
+   ========================================================================== */
 .input-box {
     width: 100%;
     margin-bottom: 20px;
-    position: relative;
 }
 
 .input-box input {
@@ -71,15 +91,12 @@ body {
 }
 
 .input-box input:focus {
-    border-color: #667eea;
+    border-color: #ea6666;
     background-color: #fff;
-    box-shadow: 0 0 5px rgba(102, 126, 234, 0.3);
+    box-shadow: 0 0 8px rgba(234, 102, 102, 0.2);
 }
 
-.input-box input::placeholder {
-    color: #999;
-}
-
+/* Case à cocher & Mot de passe oublié */
 .forgot_passwd {
     display: flex;
     justify-content: space-between;
@@ -96,15 +113,15 @@ body {
 }
 
 .forgot_passwd input[type="checkbox"] {
-    margin-right: 5px;
+    margin-right: 6px;
     cursor: pointer;
-    accent-color: #667eea;
+    accent-color: #ea6666;
 }
 
 .forgot_passwd a {
-    color: #667eea;
+    color: #ea6666;
     text-decoration: none;
-    transition: 0.3s;
+    transition: color 0.3s;
     font-weight: 500;
 }
 
@@ -112,10 +129,12 @@ body {
     text-decoration: underline;
 }
 
+/* Boutons principaux (Connexion / Inscription) */
 .connexion-btn,
-.inscription-btn {
+.inscription-btn,
+.logout-btn {
     width: 100%;
-    padding: 12px;
+    padding: 13px;
     border-radius: 8px;
     outline: none;
     cursor: pointer;
@@ -125,225 +144,94 @@ body {
     font-weight: bold;
     font-size: 16px;
     transition: all 0.3s ease;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
+}
+
+.logout-btn {
+    width: auto;
+    padding: 12px 35px;
+    background: linear-gradient(135deg, #d41900 0%, #2c1a3f 100%);
 }
 
 .connexion-btn:hover,
-.inscription-btn:hover {
+.inscription-btn:hover,
+.logout-btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 16px rgba(102, 126, 234, 0.4);
+    box-shadow: 0 6px 15px rgba(234, 102, 102, 0.4);
+    filter: brightness(1.1);
 }
 
 .connexion-btn:active,
-.inscription-btn:active {
+.inscription-btn:active,
+.logout-btn:active {
     transform: translateY(0);
 }
 
+/* Liens de basculement SPA */
 .register-link,
 .connexion-link {
     text-align: center;
     color: #666;
-    font-size: 13px;
-    margin-top: 15px;
-}
-
-.register-link p,
-.connexion-link p {
-    margin: 0;
+    font-size: 14px;
+    margin-top: 20px;
 }
 
 .register-link a,
 .connexion-link a {
-    color: #667eea;
+    color: #ea6666;
     text-decoration: none;
     font-weight: 600;
-    transition: 0.3s;
-    cursor: pointer;
+    transition: color 0.3s;
 }
 
 .register-link a:hover,
 .connexion-link a:hover {
-    color: #764ba2;
     text-decoration: underline;
+    color: #2c1a3f;
 }
 
+/* ==========================================================================
+   5. Messages d'erreur (Cachés si vides)
+   ========================================================================== */
 .error-message {
     color: #d32f2f;
     background-color: #ffebee;
     border: 1px solid #ef5350;
     padding: 10px 15px;
     border-radius: 6px;
-    margin-bottom: 15px;
-    font-size: 13px;
-    min-height: 20px;
-}
-
-.home-container {
-    background-color: rgba(255, 255, 255, 0.95);
-    border: 2px solid rgba(255, 0, 0, 0.3);
-    backdrop-filter: blur(20px);
-    padding: 50px;
-    width: 100%;
-    max-width: 600px;
-    border-radius: 20px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-    text-align: center;
-}
-
-.home-container h1 {
-    font-size: 32px;
-    color: #333;
     margin-bottom: 20px;
-    font-weight: bold;
+    font-size: 13px;
+    display: none; /* Reste masqué tant qu'aucun texte n'est injecté en JS */
 }
 
-.home-container p {
-    font-size: 16px;
-    color: #666;
-    margin-bottom: 30px;
-    line-height: 1.6;
+/* Si du texte est présent, le script JS peut appliquer une classe ou vous pouvez cibler :not(:empty) */
+.error-message:not(:empty) {
+    display: block;
 }
 
-.logout-btn {
-    padding: 12px 30px;
-    border-radius: 8px;
-    outline: none;
-    cursor: pointer;
-    background: linear-gradient(135deg, #d41900 0%, #29183a 100%);
-    color: #fff;
-    border: none;
-    font-weight: bold;
-    font-size: 16px;
-    transition: all 0.3s ease;
+/* ==========================================================================
+   6. Design Responsive & Animations
+   ========================================================================== */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
-.logout-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 16px rgba(102, 126, 234, 0.4);
-}
-
-.logout-btn:active {
-    transform: translateY(0);
-}
-
-/* Responsive design */
 @media (max-width: 480px) {
     .form-container,
     .home-container {
         padding: 30px 20px;
-        max-width: 90%;
+        width: 90%;
     }
 
     .form-container h1,
     .home-container h1 {
         font-size: 24px;
     }
-
-    .input-box input {
-        padding: 10px 12px;
-        font-size: 13px;
-    }
-}
-
-
-.connexion-btn:hover {
-    background-color: transparent;
-    border: 2px solid rgba(102, 126, 234, 0.4);
-    color: #fff;
-}
-
-.register-link,
-.connexion-link {
-    text-align: center;
-    margin-top: 25px;
-    font-size: 14px;
-    color: #666;
-}
-
-.register-link a,
-.connexion-link a {
-    color: #667eea;
-    text-decoration: none;
-    font-weight: 600;
-    transition: 0.3s;
-    cursor: pointer;
-}
-
-.register-link a:hover,
-.connexion-link a:hover {
-    color: #764ba2;
-    text-decoration: underline;
-}
-
-inscription {
-    font-family: 'Poppins', sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    
-}
-
-section {
-    background-color: transparent;
-    border: 2px solid rgba(233, 9, 9, 0.2);
-    backdrop-filter: blur(20px);
-    padding: 30px;
-    width: 420px;
-    border-radius: 20px;
-}
-
-section h1 {
-    font-size: 30px;
-    color: #fff;
-    margin-bottom: 20px;
-    text-align: center;
-}
-
-.connexion-link a {
-    color: #667eea;
-    text-decoration: none;
-    transition: 0.5s;
-    font-weight: bold;
-}
-
-
-.connexion-link a:hover {
-    text-decoration: underline;
-}
-
-.inscription-btn {
-    width: 100%;
-    padding: 15px;
-    border-radius: 25px;
-    outline: none;
-    cursor: pointer;
-    background-color: #fff; /* Couleur de base pour la visibilité */
-    color: #333;
-    border: 2px solid transparent;
-    font-weight: bold; /* Correction de 'font: bold' */
-    transition: 0.5s;
-}
-
-.inscription-btn:hover {
-    background-color: transparent;
-    border: 2px solid rgba(255, 255, 255, 0.2);
-    color: #fff;
-}
-
-.connexion-link {
-    text-align: center;
-    margin-top: 25px;
-    font-size: 14px;
-    color: #666;
-}
-
-Acceuil {
-    font-family: 'Poppins', sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    color: #fff;
-    text-align: center;
-    background-color: turquoise;
 }
