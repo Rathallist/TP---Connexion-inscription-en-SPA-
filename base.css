@@ -1,0 +1,187 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    height: 100vh;
+    background-color: #333;
+    background-position: center;
+    background-size: cover;
+}
+
+connection {
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+section {
+    background-color: transparent;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(20px);
+    padding: 30px;
+    width: 420px;
+    border-radius: 20px;
+}
+
+section h1 {
+    font-size: 30px;
+    color: #fff;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.input-box {
+    width: 100%;
+    position: relative;
+    margin-bottom: 25px;
+}
+
+.input-box input {
+    width: 100%;
+    padding: 15px;
+    border-radius: 25px;
+    outline: none;
+    background: transparent;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    color: #fff;
+    padding-right: 45px; 
+}
+
+
+.input-box input::placeholder {
+    color: #fff;
+}
+
+.input-box i {
+    position: absolute;
+    transform: translateY(-50%);
+    right: 20px;
+    top: 50%;
+    color: #fff;
+}
+
+.forgot_passwd {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+    color: #fff;
+    margin-bottom: 25px;
+}
+
+.forgot_passwd a, 
+.register-link a {
+    color: #fff;
+    text-decoration: none;
+    transition: 0.5s;
+    font-weight: bold;
+}
+
+.forgot_passwd a:hover, 
+.register-link a:hover {
+    text-decoration: underline;
+}
+
+.connexion-btn {
+    width: 100%;
+    padding: 15px;
+    border-radius: 25px;
+    outline: none;
+    cursor: pointer;
+    background-color: #fff; 
+    color: #333;
+    border: 2px solid transparent;
+    font-weight: bold; 
+    transition: 0.5s;
+}
+
+.connexion-btn:hover {
+    background-color: transparent;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    color: #fff;
+}
+
+.register-link {
+    text-align: center;
+    margin-top: 25px;
+    font-size: 14px;
+    color: #fff;
+}
+
+inscription {
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+section {
+    background-color: transparent;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(20px);
+    padding: 30px;
+    width: 420px;
+    border-radius: 20px;
+}
+
+section h1 {
+    font-size: 30px;
+    color: #fff;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.connexion-link a {
+    color: #fff;
+    text-decoration: none;
+    transition: 0.5s;
+    font-weight: bold;
+}
+
+
+.connexion-link a:hover {
+    text-decoration: underline;
+}
+
+.inscription-btn {
+    width: 100%;
+    padding: 15px;
+    border-radius: 25px;
+    outline: none;
+    cursor: pointer;
+    background-color: #fff; /* Couleur de base pour la visibilité */
+    color: #333;
+    border: 2px solid transparent;
+    font-weight: bold; /* Correction de 'font: bold' */
+    transition: 0.5s;
+}
+
+.inscription-btn:hover {
+    background-color: transparent;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    color: #fff;
+}
+
+.connexion-link {
+    text-align: center;
+    margin-top: 25px;
+    font-size: 14px;
+    color: #fff;
+}
+
+Acceuil {
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: #fff;
+    text-align: center;
+    background-color: turquoise;
+}

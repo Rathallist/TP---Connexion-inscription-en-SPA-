@@ -2,15 +2,94 @@
 
 <!DOCTYPE html>
 <html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="base.css">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="base.css">
 
+        <title>Tp - Connexion & inscription en SPA</title>
+    </head>
+
+    <bodies>
+        {% if user[1] %}
+                   <connection">
+                        <form method="POST"> 
+                            <section>
+                                <h1>Connexion</h1>
+                                <div class="input-box">
+                                    <input type="text" name="identifiant" placeholder="Identifiant" required>
+                                    <i class="fa-solid fa-user"></i>
+                                </div>
+                                <div class="input-box">
+                                    <input type="password" name="password" placeholder="Mot de passe" required>           
+                                    <i class="fa-solid fa-lock"></i>
+                                </div>
+                                <div class="forgot_passwd">
+                                    <label><input name="cookie" type="checkbox"> Se Souvenir de moi</label>
+                                    <a href="#">Mot de passe oublié ?</a>
+                                </div>
+                                <button type="submit" class="connexion-btn">Se connecter</button>
+
+                                <div class="register-link">
+                                    <p>Pas encore de compte ? S'inscrire </p>
+                                </div>
+                            </section>
+                        </form>
+                   <connection>
+
+                {% else if user[2] %}
+                    <inscription>
+                        <body>
+                            <form method="POST"> 
+                                <section>
+                                    <h1>Inscription</h1>
+                                    <div class="input-box">
+                                        <input type="text" name="identifiant" placeholder="Adresse e-mail" required>
+                                        <i class="fa-solid fa-at"></i>
+                                    </div>
+                                        <div class="input-box">
+                                        <input type="text" name="identite" placeholder="Pseudo" required>
+                                        <i class="fa-solid fa-user"></i>
+                                    </div>
+                                    <div class="input-box">
+                                        <input type="password" name="password" placeholder="Mot de passe" required>           
+                                        <i class="fa-solid fa-lock"></i>
+                                    </div>
+                                        <div class="input-box">
+                                        <input type="password" name="confirm_password" placeholder="Confirmer le mot de passe" required>           
+                                        <i class="fa-solid fa-lock"></i>
+                                    </div>
+                                    <button type="submit" class="inscription-btn">Valider</button>
+
+                                    <div class="connexion-link">
+                                        <p>Vous avez déjà un compte ? Se connecter</p>
+                                    </div>
+                                    {% with messages = get_flashed_messages(with_categories=true) %}
+                                    {% if messages %}
+                                        <div class="container mt-3">
+                                        {% for category, message in messages %}
+                                            <div class="alert alert-{{ category }}" role="alert">
+                                            {{ message }}
+                                            </div>
+                                        {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                    {% endwith %}
+
+                                </section>
+                            </form>
+
+                            
+                        </body>
+                        </inscription>
+
+                {% else%}
+                    <Acceuil>
+                        <h1>Bienvenue sur notre site !</h1>
+                        <p>wala c'est tous</p>
+                    </Acceuil>
+
+                {% endif %}
         
-
-
-    <title>Tp - Connexion & inscription en SPA</title>
-</head>
-
-<bodies>
+    </bodies>
+</html>
