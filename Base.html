@@ -1,95 +1,87 @@
 
-
 <!DOCTYPE html>
 <html lang="fr">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="base.css">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="base.css">
+    <title>TP - Connexion & Inscription en SPA</title>
+</head>
+<body>
+    <div id="app">
+        <!-- Page de Connexion -->
+        <section id="login-page" class="page active">
+            <form id="login-form">
+                <section class="form-container">
+                    <h1>Connexion</h1>
+                    
+                    <div class="input-box">
+                        <input type="text" id="login-username" placeholder="Identifiant" required>
+                    </div>
+                    
+                    <div class="input-box">
+                        <input type="password" id="login-password" placeholder="Mot de passe" required>
+                    </div>
+                    
+                    <div class="forgot_passwd">
+                        <label><input type="checkbox" id="remember-me"> Se souvenir de moi</label>
+                        <a href="#">Mot de passe oublié ?</a>
+                    </div>
+                    
+                    <div id="login-error" class="error-message"></div>
+                    
+                    <button type="submit" class="connexion-btn">Se connecter</button>
+                    
+                    <div class="register-link">
+                        <p>Pas encore de compte ? <a href="#" id="to-register">S'inscrire</a></p>
+                    </div>
+                </section>
+            </form>
+        </section>
 
-        <title>Tp - Connexion & inscription en SPA</title>
-    </head>
+        <!-- Page d'Inscription -->
+        <section id="register-page" class="page">
+            <form id="register-form">
+                <section class="form-container">
+                    <h1>Inscription</h1>
+                    
+                    <div class="input-box">
+                        <input type="email" id="register-email" placeholder="Adresse e-mail" required>
+                    </div>
+                    
+                    <div class="input-box">
+                        <input type="text" id="register-username" placeholder="Pseudo" required>
+                    </div>
+                    
+                    <div class="input-box">
+                        <input type="password" id="register-password" placeholder="Mot de passe" required>
+                    </div>
+                    
+                    <div class="input-box">
+                        <input type="password" id="register-confirm-password" placeholder="Confirmer le mot de passe" required>
+                    </div>
+                    
+                    <div id="register-error" class="error-message"></div>
+                    
+                    <button type="submit" class="inscription-btn">Valider</button>
+                    
+                    <div class="connexion-link">
+                        <p>Vous avez déjà un compte ? <a href="#" id="to-login">Se connecter</a></p>
+                    </div>
+                </section>
+            </form>
+        </section>
 
-    <bodies>
-        {% if user[1] %}
-                   <connection">
-                        <form method="POST"> 
-                            <section>
-                                <h1>Connexion</h1>
-                                <div class="input-box">
-                                    <input type="text" name="identifiant" placeholder="Identifiant" required>
-                                    <i class="fa-solid fa-user"></i>
-                                </div>
-                                <div class="input-box">
-                                    <input type="password" name="password" placeholder="Mot de passe" required>           
-                                    <i class="fa-solid fa-lock"></i>
-                                </div>
-                                <div class="forgot_passwd">
-                                    <label><input name="cookie" type="checkbox"> Se Souvenir de moi</label>
-                                    <a href="#">Mot de passe oublié ?</a>
-                                </div>
-                                <button type="submit" class="connexion-btn">Se connecter</button>
+        <!-- Page d'Accueil -->
+        <section id="home-page" class="page">
+            <section class="home-container">
+                <h1>Bienvenue sur notre site !</h1>
+                <p id="welcome-message"></p>
+                <button id="logout-btn" class="logout-btn">Se déconnecter</button>
+            </section>
+        </section>
+    </div>
 
-                                <div class="register-link">
-                                    <p>Pas encore de compte ? S'inscrire </p>
-                                </div>
-                            </section>
-                        </form>
-                   <connection>
-
-                {% else if user[2] %}
-                    <inscription>
-                        <body>
-                            <form method="POST"> 
-                                <section>
-                                    <h1>Inscription</h1>
-                                    <div class="input-box">
-                                        <input type="text" name="identifiant" placeholder="Adresse e-mail" required>
-                                        <i class="fa-solid fa-at"></i>
-                                    </div>
-                                        <div class="input-box">
-                                        <input type="text" name="identite" placeholder="Pseudo" required>
-                                        <i class="fa-solid fa-user"></i>
-                                    </div>
-                                    <div class="input-box">
-                                        <input type="password" name="password" placeholder="Mot de passe" required>           
-                                        <i class="fa-solid fa-lock"></i>
-                                    </div>
-                                        <div class="input-box">
-                                        <input type="password" name="confirm_password" placeholder="Confirmer le mot de passe" required>           
-                                        <i class="fa-solid fa-lock"></i>
-                                    </div>
-                                    <button type="submit" class="inscription-btn">Valider</button>
-
-                                    <div class="connexion-link">
-                                        <p>Vous avez déjà un compte ? Se connecter</p>
-                                    </div>
-                                    {% with messages = get_flashed_messages(with_categories=true) %}
-                                    {% if messages %}
-                                        <div class="container mt-3">
-                                        {% for category, message in messages %}
-                                            <div class="alert alert-{{ category }}" role="alert">
-                                            {{ message }}
-                                            </div>
-                                        {% endfor %}
-                                        </div>
-                                    {% endif %}
-                                    {% endwith %}
-
-                                </section>
-                            </form>
-
-                            
-                        </body>
-                        </inscription>
-
-                {% else%}
-                    <Acceuil>
-                        <h1>Bienvenue sur notre site !</h1>
-                        <p>wala c'est tous</p>
-                    </Acceuil>
-
-                {% endif %}
-        
-    </bodies>
+    <script src="Base.js"></script>
+</body>
 </html>
