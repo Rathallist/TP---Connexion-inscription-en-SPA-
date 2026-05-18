@@ -8,7 +8,7 @@ class AuthApp {
         this.showPage('login');
     }
 
-    // Initialiser les écouteurs d'événements(ça permet de gérer les interactions utilisateur, genre si tu clic sur le bouton de connexion, ça va appeler la fonction handleLogin)
+    // Initialise les écouteurs d'événements(ça permet de gérer les interactions utilisateur, genre si tu clic sur le bouton de connexion, ça va appeler la fonction handleLogin)
     initEventListeners() {
         // Formulaire de connexion
         const loginForm = document.getElementById('login-form');
@@ -37,7 +37,7 @@ class AuthApp {
         });
     }
 
-    // Gérer la connexion(définition des variables relatives à la connexion + validation des champs)
+    // Gère la connexion(définition des variables relatives à la connexion + validation des champs)
     handleLogin(event) {
         event.preventDefault();
 
@@ -45,13 +45,13 @@ class AuthApp {
         const password = document.getElementById('login-password').value;
         const rememberMe = document.getElementById('remember-me').checked;
 
-        // Valider les champs
+        // Valide les champs
         if (!email || !password) {
             this.showLoginError('Veuillez remplir tous les champs.');
             return;
         }
 
-        // Vérifier les e-mails
+        // Vérifie les e-mails
         const user = this.users.find(u => u.email === email.toLowerCase());
 
         if (!user) {
@@ -74,7 +74,7 @@ class AuthApp {
         this.updateWelcomeMessage();
     }
 
-    // Gérer l'inscription(même chose que au dessus mais avec des champs supplémentaires et des validations en plus)
+    // Gére l'inscription(même chose que au dessus mais avec des champs supplémentaires et des validations en plus)
     handleRegister(event) {
         event.preventDefault();
 
@@ -83,37 +83,37 @@ class AuthApp {
         const password = document.getElementById('register-password').value;
         const confirmPassword = document.getElementById('register-confirm-password').value;
 
-        // Valider les champs
+        // Valide les champs
         if (!name || !email || !password || !confirmPassword) {
             this.showRegisterError('Veuillez remplir tous les champs.');
             return;
         }
 
-        // Valider le format d'email
+        // Valide le format d'email
         if (!this.isValidEmail(email)) {
             this.showRegisterError('Veuillez entrer une adresse e-mail valide.');
             return;
         }
 
-        // Vérifier que les mots de passe correspondent
+        // Vérifie que les mots de passe correspondent
         if (password !== confirmPassword) {
             this.showRegisterError('Les mots de passe ne correspondent pas.');
             return;
         }
 
-        // Vérifier que le mot de passe a au moins 6 caractères
+        // Vérifie que le mot de passe a au moins 6 caractères
         if (password.length < 6) {
             this.showRegisterError('Le mot de passe doit contenir au moins 6 caractères.');
             return;
         }
 
-        // Vérifier que l'e-mail n'existe pas déjà
+        // Vérifie que l'e-mail n'existe pas déjà
         if (this.users.some(u => u.email === email.toLowerCase())) {
             this.showRegisterError('Cette adresse e-mail est déjà utilisée.');
             return;
         }
 
-        // Vérifier que le nom n'existe pas déjà
+        // Vérifie que le nom n'existe pas déjà
         if (this.users.some(u => u.name.toLowerCase() === name.toLowerCase())) {
             this.showRegisterError('Ce nom est déjà utilisé.');
             return;
@@ -136,7 +136,7 @@ class AuthApp {
         this.clearErrors();
     }
 
-    // Gérer la déconnexion(simple logique pour réinitialiser les variables)
+    // Gère la déconnexion(simple logique pour réinitialiser les variables)
     logout() {
         this.currentUser = null;
         localStorage.removeItem('rememberedUser');
@@ -145,7 +145,7 @@ class AuthApp {
         this.showPage('login');
     }
 
-    // Afficher une page et masquer les autres
+    // Affiche une page et masquer les autres
     showPage(pageName) {
         const pages = document.querySelectorAll('.page');
         pages.forEach(page => page.classList.remove('active'));
@@ -159,7 +159,7 @@ class AuthApp {
         }
     }
 
-    // Mettre à jour le message de bienvenue
+    // Met à jour le message de bienvenue
     updateWelcomeMessage() {
         if (this.currentUser) {
             document.getElementById('welcome-message').textContent = 
@@ -167,17 +167,17 @@ class AuthApp {
         }
     }
 
-    // Afficher les erreurs de connexion
+    // Affiche les erreurs de connexion
     showLoginError(message) {
         document.getElementById('login-error').textContent = message;
     }
 
-    // Afficher les erreurs d'inscription
+    // Affiche les erreurs d'inscription
     showRegisterError(message) {
         document.getElementById('register-error').textContent = message;
     }
 
-    // Effacer les messages d'erreur
+    // Efface les messages d'erreur
     clearErrors() {
         document.getElementById('login-error').textContent = '';
         document.getElementById('register-error').textContent = '';
@@ -206,7 +206,8 @@ class AuthApp {
         return emailRegex.test(email);
     }
 
-    // Charger les utilisateurs du localStorage
+    // Charger les utilisateurs du localStorage(Pseudo API pour stocker les utilisateurs, ça permet de garder les données même après le 
+    // rafraîchissement de la page. Içi on trouve les utilisateurs de test pour pouvoir tester la fonctionnalité de connexion sans devoir s'inscrire à chaque fois)
     loadUsersFromStorage() {
         const stored = localStorage.getItem('users');
         if (stored) {
@@ -219,7 +220,7 @@ class AuthApp {
         ];
     }
 
-    // Sauvegarder les utilisateurs au localStorage
+    // Sauvegarder les utilisateurs au localStorage(Ajoute des utilisateur au pseudo API)
     saveUsersToStorage() {
         localStorage.setItem('users', JSON.stringify(this.users));
     }
