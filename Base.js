@@ -8,7 +8,7 @@ class AuthApp {
         this.showPage('login');
     }
 
-    // Initialiser les écouteurs d'événements
+    // Initialiser les écouteurs d'événements(ça permet de gérer les interactions utilisateur, genre si tu clic sur le bouton de connexion, ça va appeler la fonction handleLogin)
     initEventListeners() {
         // Formulaire de connexion
         const loginForm = document.getElementById('login-form');
@@ -37,7 +37,7 @@ class AuthApp {
         });
     }
 
-    // Gérer la connexion
+    // Gérer la connexion(définition des variables relatives à la connexion + validation des champs)
     handleLogin(event) {
         event.preventDefault();
 
@@ -74,7 +74,7 @@ class AuthApp {
         this.updateWelcomeMessage();
     }
 
-    // Gérer l'inscription
+    // Gérer l'inscription(même chose que au dessus mais avec des champs supplémentaires et des validations en plus)
     handleRegister(event) {
         event.preventDefault();
 
@@ -136,7 +136,7 @@ class AuthApp {
         this.clearErrors();
     }
 
-    // Gérer la déconnexion
+    // Gérer la déconnexion(simple logique pour réinitialiser les variables)
     logout() {
         this.currentUser = null;
         localStorage.removeItem('rememberedUser');
