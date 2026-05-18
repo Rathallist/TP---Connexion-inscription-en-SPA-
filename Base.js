@@ -18,7 +18,7 @@ class AuthApp {
         const registerForm = document.getElementById('register-form');
         registerForm.addEventListener('submit', (e) => this.handleRegister(e));
 
-        // Liens de navigation
+        // Liens de navigation(affiches les pages de connexion ou d'inscription selon le lien cliqué)
         document.getElementById('to-register').addEventListener('click', (e) => {
             e.preventDefault();
             this.showPage('register');
