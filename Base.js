@@ -43,7 +43,6 @@ class AuthApp {
 
         const email = document.getElementById('login-email').value.trim();
         const password = document.getElementById('login-password').value;
-        const rememberMe = document.getElementById('remember-me').checked;
 
         // Valide les champs
         if (!email || !password) {
@@ -66,9 +65,6 @@ class AuthApp {
 
         // Connexion réussie
         this.currentUser = user;
-        if (rememberMe) {
-            localStorage.setItem('rememberedUser', email.toLowerCase());
-        }
         this.clearLoginForm();
         this.showPage('home');
         this.updateWelcomeMessage();
