@@ -2,6 +2,7 @@
 
 class AuthApp {
     constructor() {
+        this.backendUrl = 'http://localhost:3000'; 
         this.currentUser = null;
         this.users = this.loadUsersFromStorage();
         this.initEventListeners();
@@ -38,7 +39,7 @@ class AuthApp {
     }
 
     // Gère la connexion(définition des variables relatives à la connexion + validation des champs)
-    handleLogin(event) {
+    async handleLogin(event) {
         event.preventDefault();
 
         const email = document.getElementById('login-email').value.trim();
@@ -51,31 +52,24 @@ class AuthApp {
             return;
         }
 
-        // Vérifie les e-mails
-        const user = this.users.find(u => u.email === email.toLowerCase());
+        try {
+            const user = await this.apiLogin(email, password);
+            this.currentUser = user;
 
-        if (!user) {
-            this.showLoginError('Adresse e-mail ou mot de passe incorrect.');
-            return;
-        }
+            if (rememberMe) {
+                localStorage.setItem('rememberedUser', email.toLowerCase());
+            }
 
-        if (user.password !== password) {
-            this.showLoginError('Adresse e-mail ou mot de passe incorrect.');
-            return;
+            this.clearLoginForm();
+            this.showPage('home');
+            this.updateWelcomeMessage();
+        } catch (error) {
+            this.showLoginError(error?.message || 'Erreur de connexion au serveur.');
         }
-
-        // Connexion réussie
-        this.currentUser = user;
-        if (rememberMe) {
-            localStorage.setItem('rememberedUser', email.toLowerCase());
-        }
-        this.clearLoginForm();
-        this.showPage('home');
-        this.updateWelcomeMessage();
     }
 
     // Gére l'inscription(même chose que au dessus mais avec des champs supplémentaires et des validations en plus)
-    handleRegister(event) {
+    async handleRegister(event) {
         event.preventDefault();
 
         const name = document.getElementById('register-name').value.trim();
@@ -126,23 +120,69 @@ class AuthApp {
             password: password
         };
 
-        this.users.push(newUser);
-        this.saveUsersToStorage();
+        try {
+            await this.apiRegister(newUser);
+            this.users.push(newUser);
+            this.saveUsersToStorage();
 
-        // Message de succès et redirection
-        alert('Inscription réussie ! Vous pouvez maintenant vous connecter.');
-        this.clearRegisterForm();
-        this.showPage('login');
-        this.clearErrors();
+            alert('Inscription réussie ! Vous pouvez maintenant vous connecter.');
+            this.clearRegisterForm();
+            this.showPage('login');
+            this.clearErrors();
+        } catch (error) {
+            this.showRegisterError(error?.message || 'Erreur lors de l’inscription.');
+        }
     }
 
     // Gère la déconnexion(simple logique pour réinitialiser les variables)
     logout() {
+        this.apiLogout();
         this.currentUser = null;
         localStorage.removeItem('rememberedUser');
         this.clearLoginForm();
         this.clearRegisterForm();
         this.showPage('login');
+    }
+
+    async apiLogin(email, password) {
+        const response = await fetch(`${this.backendUrl}/login`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, password })
+        });
+
+        if (!response.ok) {
+            const data = await response.json().catch(() => null);
+            throw new Error(data?.message || 'Adresse e-mail ou mot de passe incorrect.');
+        }
+
+        return response.json();
+    }
+
+    async apiRegister(user) {
+        const response = await fetch(`${this.backendUrl}/register`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(user)
+        });
+
+        if (!response.ok) {
+            const data = await response.json().catch(() => null);
+            throw new Error(data?.message || 'Impossible de créer le compte.');
+        }
+
+        return response.json();
+    }
+
+    async apiLogout() {
+        try {
+            await fetch(`${this.backendUrl}/logout`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' }
+            });
+        } catch (error) {
+            console.warn('Impossible de contacter le backend lors de la déconnexion.', error);
+        }
     }
 
     // Affiche une page et masquer les autres
