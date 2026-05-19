@@ -53,7 +53,9 @@ class AuthApp {
         }
 
         try {
-            const user = await this.apiLogin(email, password);
+            // Hash le mot de passe avant l'envoi
+            const hashedPassword = this.hashPassword(password);
+            const user = await this.apiLogin(email, hashedPassword);
             this.currentUser = user;
 
             if (rememberMe) {
@@ -113,11 +115,11 @@ class AuthApp {
             return;
         }
 
-        // Créer le nouvel utilisateur
+        // Créer le nouvel utilisateur avec mot de passe hashé
         const newUser = {
             name: name,
             email: email.toLowerCase(),
-            password: password
+            password: this.hashPassword(password)
         };
 
         try {
@@ -246,19 +248,17 @@ class AuthApp {
         return emailRegex.test(email);
     }
 
+    // Hacher un mot de passe avec SHA256
+    hashPassword(password) {
+        return CryptoJS.SHA256(password).toString();
+    }
+
     // Charger les utilisateurs du localStorage(Pseudo API pour stocker les utilisateurs, ça permet de garder les données même après le 
     // rafraîchissement de la page. Içi on trouve les utilisateurs de test pour pouvoir tester la fonctionnalité de connexion sans devoir s'inscrire à chaque fois)
-    loadUsersFromStorage() {
-        const stored = localStorage.getItem('users');
-        if (stored) {
-            return JSON.parse(stored);
-        }
-        // Utilisateurs de test
-        return [
-            { name: 'Test User', email: 'test@example.com', password: 'test123' },
-            { name: 'Demo User', email: 'demo@example.com', password: 'demo123' }
-        ];
-    }
+            // Utilisateurs de test avec mots de passe hashés
+            return [
+                { name: 'Test User', email: 'test@example.com', password: CryptoJS.SHA256('test123').toString() },
+                { name: 'Demo User', email: 'demo@example.com', password: CryptoJS.SHA256('demo123').toString() }
 
     // Sauvegarder les utilisateurs au localStorage(Ajoute des utilisateur au pseudo API)
     saveUsersToStorage() {
